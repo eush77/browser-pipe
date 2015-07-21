@@ -15,7 +15,13 @@ Open URLs from stdin in the browser.
 
 ```
 $ echo http://github.com |browser-pipe
-$ ecstatic dist/ |browser-pipe
+```
+
+`browser-pipe` forwards stdin to stdout, thus the original output is not modified:
+
+```
+$ ecstatic / |browser-pipe
+ecstatic serving / at http://0.0.0.0:8000
 ```
 
 Add `--limit=N` option to open the first `N` links.

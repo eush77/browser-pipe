@@ -4,7 +4,8 @@
 var browserPipe = require('./');
 
 var help = require('help-version')(usage()).help,
-    minimist = require('minimist');
+    minimist = require('minimist'),
+    multiWrite = require('multi-write-stream');
 
 
 function usage() {
@@ -27,5 +28,6 @@ var opts = minimist(process.argv.slice(2), {
 
 
 (function (opts) {
-  process.stdin.pipe(browserPipe(opts));
+  process.stdin.pipe(multiWrite([browserPipe(opts),
+                                 process.stdout]));
 }(opts));
