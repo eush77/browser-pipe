@@ -1,0 +1,35 @@
+{
+  "name": "browser-pipe",
+  "version": "0.0.0",
+  "description": "Open URLs from stdin in the browser",
+  "author": "Eugene Sharygin <eush77@gmail.com>",
+  "license": "MIT",
+  "bin": {
+    "browser-pipe": "cli.js"
+  },
+  "files": [
+    "cli.js"
+  ],
+  "homepage": "https://github.com/eush77/browser-pipe",
+  "repository": "eush77/browser-pipe",
+  "bugs": {
+    "url": "https://github.com/eush77/browser-pipe/issues"
+  },
+  "keywords": [
+    "open",
+    "stdin",
+    "stream",
+    "pipe",
+    "browser",
+    "browse",
+    "navigate",
+    "cli"
+  ],
+  "dependencies": {
+    "help-version": "^1.0.0",
+    "opn": "^3.0.2",
+    "through2": "^2.0.0",
+    "url-regex": "^3.0.0"
+  },
+  "devDependencies": {}
+}
