@@ -11,16 +11,31 @@ Open URLs from stdin in the browser.
 
 ## Usage
 
+#### `browser-pipe [--limit N]`
+
 ```
 $ echo http://github.com |browser-pipe
 $ ecstatic dist/ |browser-pipe
 ```
 
+Add `--limit=N` option to open the first `N` links.
+
+```
+$ curl "http://api.duckduckgo.com/?q=unicorn&format=xml&pretty=1" |browser-pipe --limit=2"
+```
+
 ## API
 
-#### `browserPipe()`
+#### `browserPipe([opts])`
 
-Writable stream.
+Returns a writable stream.
+
+##### `opts.limit`
+
+Type: `Number`<br>
+Default: `Infinity`
+
+Number of URLs to open.
 
 ## Install
 

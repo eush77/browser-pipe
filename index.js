@@ -5,10 +5,14 @@ var through = require('through2'),
     open = require('opn');
 
 
-module.exports = function () {
+module.exports = function (opts) {
+  var limit = opts && opts.limit != null ? opts.limit : Infinity;
+
   return through(function (chunk, enc, done) {
     chunk.toString().match(urlRegExp()).forEach(function (url) {
-      open(url);
+      if (--limit >= 0) {
+        open(url);
+      }
     });
     done();
   });
