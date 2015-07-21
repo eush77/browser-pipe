@@ -8,6 +8,7 @@
     "browser-pipe": "cli.js"
   },
   "files": [
+    "index.js",
     "cli.js"
   ],
   "homepage": "https://github.com/eush77/browser-pipe",
@@ -17,10 +18,15 @@
   },
   "keywords": [
     "open",
+    "url",
+    "link",
     "stdin",
+    "stdout",
+    "cat",
     "stream",
     "pipe",
     "browser",
+    "tab",
     "browse",
     "navigate",
     "cli"
