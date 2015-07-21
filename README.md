@@ -27,7 +27,7 @@ ecstatic serving / at http://0.0.0.0:8000
 Add `--limit=N` option to open the first `N` links.
 
 ```
-$ curl "http://api.duckduckgo.com/?q=unicorn&format=xml&pretty=1" |browser-pipe --limit=2"
+$ curl "http://api.duckduckgo.com/?q=unicorn&format=xml&pretty=1" |browser-pipe --limit=2
 ```
 
 ## API
