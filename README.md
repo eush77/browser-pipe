@@ -36,14 +36,14 @@ $ curl "http://api.duckduckgo.com/?q=unicorn&format=xml&pretty=1" |browser-pipe 
 
 Returns a writable stream.
 
-__Note__: URL must be contained in a single chunk of data in order to be recognized by this module. This is intentional. Open an issue if there is a legitimate use case where this property does not hold true.
+__Note__: a single URL must not be split across multiple chunks of data in order to be recognized by this module. This is intentional. Open an issue if there is a legitimate use case where this property does not hold true.
 
 ##### `opts.limit`
 
 Type: `Number`<br>
 Default: `Infinity`
 
-Number of URLs to open.
+Upper bound on the number of URLs to open.
 
 ## Install
 
