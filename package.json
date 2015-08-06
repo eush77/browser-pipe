@@ -7,9 +7,12 @@
   "bin": {
     "browser-pipe": "cli.js"
   },
+  "scripts": {
+    "test": "tape test/*.js"
+  },
   "files": [
-    "index.js",
-    "cli.js"
+    "cli.js",
+    "index.js"
   ],
   "homepage": "https://github.com/eush77/browser-pipe",
   "repository": "eush77/browser-pipe",
@@ -17,19 +20,19 @@
     "url": "https://github.com/eush77/browser-pipe/issues"
   },
   "keywords": [
-    "open",
-    "url",
+    "browse",
+    "browser",
+    "cat",
+    "cli",
     "link",
+    "navigate",
+    "open",
+    "pipe",
     "stdin",
     "stdout",
-    "cat",
     "stream",
-    "pipe",
-    "browser",
     "tab",
-    "browse",
-    "navigate",
-    "cli"
+    "url"
   ],
   "dependencies": {
     "help-version": "^1.0.0",
@@ -39,5 +42,8 @@
     "through2": "^2.0.0",
     "url-regex": "^3.0.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "rewire": "^2.3.4",
+    "tape": "^4.0.2"
+  }
 }
