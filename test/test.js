@@ -4,15 +4,22 @@ var test = require('tape'),
     rewire = require('rewire'),
     through = require('through2');
 
-var events = require('events');
-
-var bpiped = new events;
 var bpipe = rewire('..');
-bpipe.__set__('open', bpiped.emit.bind(bpiped, 'open'));
 
 
 test(function (t) {
   t.plan(3);
+
+  var outputIndex = 0;
+  var output = [
+    'http://domain.com/first/path/',
+    'http://domain.com/second/path',
+    'http://domain.com'
+  ];
+
+  bpipe.__set__('open', function (url) {
+    t.equal(url, output[outputIndex++]);
+  });
 
   var input = through();
   input.write('http://domain.com/first/path/\n');
@@ -23,15 +30,22 @@ test(function (t) {
   input.end();
 
   input.pipe(bpipe());
+});
+
+
+test('limit', function (t) {
+  t.plan(2);
 
   var outputIndex = 0;
-  var output = [
-    'http://domain.com/first/path/',
-    'http://domain.com/second/path',
-    'http://domain.com'
-  ];
 
-  bpiped.on('open', function (url) {
-    t.equal(url, output[outputIndex++]);
+  bpipe.__set__('open', function (url) {
+    t.equal(url, 'http://domain.com/' + outputIndex++);
   });
+
+  var pipe = bpipe({ limit: 2 });
+  pipe.write('http://domain.com/0\n');
+  pipe.write('http://domain.com/1\n');
+  pipe.write('http://domain.com/2\n');
+  pipe.write('http://domain.com/3\n');
+  pipe.end();
 });
