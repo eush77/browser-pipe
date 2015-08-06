@@ -2,10 +2,12 @@
 
 # browser-pipe
 
-[![Dependency Status][david-badge]][david]
+[![Build Status][travis-badge]][travis] [![Dependency Status][david-badge]][david]
 
 Open URLs from stdin in the browser.
 
+[travis]: https://travis-ci.org/eush77/browser-pipe
+[travis-badge]: https://travis-ci.org/eush77/browser-pipe.svg
 [david]: https://david-dm.org/eush77/browser-pipe
 [david-badge]: https://david-dm.org/eush77/browser-pipe.png
 
