@@ -6,12 +6,14 @@ var through = require('through2'),
 
 
 module.exports = function (opts) {
-  var limit = opts && opts.limit != null ? opts.limit : Infinity;
+  opts = opts || {};
+  opts.limit = (opts.limit != null) ? opts.limit : Infinity;
+  opts.open = opts.open || open;
 
   return through(function (chunk, enc, done) {
     (chunk.toString().match(urlRegExp()) || []).forEach(function (url) {
-      if (--limit >= 0) {
-        open(url);
+      if (--opts.limit >= 0) {
+        opts.open(url);
       }
     });
     done();

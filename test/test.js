@@ -33,7 +33,7 @@ test(function (t) {
 });
 
 
-test('limit', function (t) {
+test('opts.limit', function (t) {
   t.plan(2);
 
   var outputIndex = 0;
@@ -48,4 +48,19 @@ test('limit', function (t) {
   pipe.write('http://domain.com/2\n');
   pipe.write('http://domain.com/3\n');
   pipe.end();
+});
+
+
+test('opts.open', function (t) {
+  t.plan(1);
+
+  bpipe.__set__('open', function () {
+    t.fail('opts.open did not work');
+  });
+
+  bpipe({ open: open }).end('http://domain.com');
+
+  function open (url) {
+    t.equal(url, 'http://domain.com');
+  }
 });

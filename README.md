@@ -47,6 +47,13 @@ Default: `Infinity`
 
 Upper bound on the number of URLs to open.
 
+##### `opts.open`
+
+Type: `Function` <br>
+Default: `require('opn')`
+
+URL opener.
+
 ## Install
 
 ```
