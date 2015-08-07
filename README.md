@@ -13,7 +13,7 @@ Open URLs from stdin in the browser.
 
 ## Usage
 
-#### `browser-pipe [--limit N]`
+#### `browser-pipe [--limit N] [--dry-run]`
 
 ```
 $ echo http://github.com |browser-pipe

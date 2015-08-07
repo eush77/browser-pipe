@@ -12,15 +12,17 @@ function usage() {
   return [
     'Usage:  browser-pipe [OPTION]... <input',
     '',
-    'Reads stdin and open URLs in the browser.',
+    'Reads stdin and opens URLs in the browser.',
     '',
     'Options:',
-    '  --limit=N  Open first N links.'
+    '  --limit=N  Open first N links.',
+    '  --dry-run  Print URLs that would be opened. Discards normal output.'
   ].join('\n');
 }
 
 
 var opts = minimist(process.argv.slice(2), {
+  boolean: ['dry-run'],
   default: {
     limit: Infinity
   }
@@ -28,6 +30,18 @@ var opts = minimist(process.argv.slice(2), {
 
 
 (function (opts) {
-  process.stdin.pipe(multiWrite([browserPipe(opts),
-                                 process.stdout]));
+  if (opts['dry-run']) {
+    process.stdin.pipe(browserPipe({
+      limit: opts.limit,
+      open: console.log
+    }));
+  }
+  else {
+    process.stdin.pipe(multiWrite([
+      process.stdout,
+      browserPipe({
+        limit: opts.limit
+      })
+    ]));
+  }
 }(opts));
