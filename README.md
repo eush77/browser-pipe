@@ -13,7 +13,7 @@ Open URLs from stdin in the browser.
 
 ## Usage
 
-#### `browser-pipe [--limit N] [--dry-run]`
+#### `browser-pipe [--count=N] [--dry-run]`
 
 ```
 $ echo http://github.com |browser-pipe
@@ -26,11 +26,17 @@ $ ecstatic / |browser-pipe
 ecstatic serving / at http://0.0.0.0:8000
 ```
 
-Add `--limit=N` option to open the first `N` links.
+##### `--count=[-]N`, `-n[-]N`
 
+Open the first `N` links instead of all links. With the leading `-`, open the last `N` links.
+
+```fish
+$ curl "http://api.duckduckgo.com/?q=unicorn&format=xml&pretty=1" | browser-pipe -n2
 ```
-$ curl "http://api.duckduckgo.com/?q=unicorn&format=xml&pretty=1" |browser-pipe --limit=2
-```
+
+##### `--dry-run`
+
+Print URLs that would be opened, but do not open them.
 
 ## API
 
@@ -40,12 +46,14 @@ Returns a writable stream.
 
 __Note__: a single URL must not be split across multiple chunks of data in order to be recognized by this module. This is intentional. Open an issue if there is a legitimate use case where this property does not hold true.
 
-##### `opts.limit`
+##### `opts.count`
 
 Type: `Number`<br>
 Default: `Infinity`
 
-Upper bound on the number of URLs to open.
+If positive or zero, serves as the upper bound on the number of URLs to open.
+
+If negative, gives the index of the first URL to print, counting from the end.
 
 ##### `opts.open`
 

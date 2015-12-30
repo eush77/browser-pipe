@@ -7,7 +7,7 @@ var test = require('tape'),
 var bpipe = rewire('..');
 
 
-test(function (t) {
+test('browser-pipe', function (t) {
   t.plan(3);
 
   var outputIndex = 0;
@@ -33,24 +33,6 @@ test(function (t) {
 });
 
 
-test('opts.limit', function (t) {
-  t.plan(2);
-
-  var outputIndex = 0;
-
-  bpipe.__set__('open', function (url) {
-    t.equal(url, 'http://domain.com/' + outputIndex++);
-  });
-
-  var pipe = bpipe({ limit: 2 });
-  pipe.write('http://domain.com/0\n');
-  pipe.write('http://domain.com/1\n');
-  pipe.write('http://domain.com/2\n');
-  pipe.write('http://domain.com/3\n');
-  pipe.end();
-});
-
-
 test('opts.open', function (t) {
   t.plan(1);
 
@@ -63,4 +45,88 @@ test('opts.open', function (t) {
   function open (url) {
     t.equal(url, 'http://domain.com');
   }
+});
+
+
+test('opts.count', function (t) {
+  t.test('opts.count == 2', function (t) {
+    t.plan(2);
+
+    var outputIndex = 0;
+
+    var open = function (url) {
+      t.equal(url, 'http://domain.com/' + outputIndex++);
+    };
+
+    var pipe = bpipe({ count: 2, open: open });
+    pipe.write('http://domain.com/0\n');
+    pipe.write('http://domain.com/1\n');
+    pipe.write('http://domain.com/2\n');
+    pipe.write('http://domain.com/3\n');
+    pipe.end();
+  });
+
+  t.test('opts.count == 0', function (t) {
+    var pipe = bpipe({ count: 0, open: open });
+    pipe.write('http://domain.com/0\n');
+    pipe.write('http://domain.com/1\n');
+    pipe.write('http://domain.com/2\n');
+    pipe.write('http://domain.com/3\n');
+    pipe.end();
+
+    t.end();
+
+    function open () {
+      t.fail();
+    }
+  });
+
+  t.test('opts.count == -2', function (t) {
+    t.plan(2);
+
+    var outputIndex = 2;
+
+    var open = function (url) {
+      t.equal(url, 'http://domain.com/' + outputIndex++);
+    };
+
+    var pipe = bpipe({ count: -2, open: open });
+    pipe.write('http://domain.com/0\n');
+    pipe.write('http://domain.com/1\n');
+    pipe.write('http://domain.com/2\n');
+    pipe.write('http://domain.com/3\n');
+    pipe.end();
+  });
+
+  t.test('opts.count == -100', function (t) {
+    t.plan(2);
+
+    var outputIndex = 0;
+
+    var open = function (url) {
+      t.equal(url, 'http://domain.com/' + outputIndex++);
+    };
+
+    var pipe = bpipe({ count: -100, open: open });
+    pipe.write('http://domain.com/0\n');
+    pipe.write('http://domain.com/1\n');
+    pipe.end();
+  });
+
+  t.test('opts.count == 100', function (t) {
+    t.plan(2);
+
+    var outputIndex = 0;
+
+    var open = function (url) {
+      t.equal(url, 'http://domain.com/' + outputIndex++);
+    };
+
+    var pipe = bpipe({ count: 100, open: open });
+    pipe.write('http://domain.com/0\n');
+    pipe.write('http://domain.com/1\n');
+    pipe.end();
+  });
+
+  t.end();
 });
