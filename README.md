@@ -15,14 +15,14 @@ Open URLs from stdin in the browser.
 
 #### `browser-pipe [--count=N] [--dry-run]`
 
-```
-$ echo http://github.com |browser-pipe
+```fish
+$ echo http://github.com | browser-pipe
 ```
 
 `browser-pipe` forwards stdin to stdout, thus the original output is not modified:
 
-```
-$ ecstatic / |browser-pipe
+```fish
+$ ecstatic / | browser-pipe
 ecstatic serving / at http://0.0.0.0:8000
 ```
 
@@ -44,7 +44,7 @@ Print URLs that would be opened, but do not open them.
 
 Returns a writable stream.
 
-__Note__: a single URL must not be split across multiple chunks of data in order to be recognized by this module. This is intentional. Open an issue if there is a legitimate use case where this property does not hold true.
+__Note__: a single URL must not be split across multiple chunks of data in order to be recognized by this module. This is intentional. Open an issue if there is a legitimate use case where this property does not hold.
 
 ##### `opts.count`
 
@@ -57,14 +57,16 @@ If negative, gives the index of the first URL to print, counting from the end.
 
 ##### `opts.open`
 
-Type: `Function` <br>
-Default: `require('opn')`
+Type: `function(url)` <br>
+Default: [`opn`][opn]
 
 URL opener.
 
+[opn]: https://github.com/sindresorhus/opn
+
 ## Install
 
-```
+```fish
 npm install browser-pipe
 ```
 
